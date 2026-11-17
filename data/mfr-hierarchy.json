@@ -1,0 +1,715 @@
+{
+  "version": "1.1",
+  "genere_le": "2026-11-16T22:11:10",
+  "source": "SIG-PRODER-COMPLEMENTARITE.kmz (dossiers 2.3.3) + neatogeo_2.3.3.Formation Diplomante.geojson",
+  "note_vie_privee": "Agrégats uniquement — aucune donnée nominative dans ce fichier.",
+  "def_jeunes": "Champ « Jeune » de la source, sinon âge ≤ 35 ans (année de référence 2024 pour les années de naissance).",
+  "total_beneficiaires": 856,
+  "tranches": [
+    {
+      "id": "T1",
+      "label": "Tranche 1 (2023/2024)",
+      "total": 181,
+      "hommes": 36,
+      "femmes": 145,
+      "non_renseigne": 0,
+      "jeunes": 112,
+      "jeunes_nr": 0,
+      "specialites": [
+        {
+          "id": "VALORISATION",
+          "label": "Valorisation des produits locaux",
+          "total": 145,
+          "hommes": 0,
+          "femmes": 145,
+          "non_renseigne": 0,
+          "jeunes": 76,
+          "jeunes_nr": 0,
+          "communes": [
+            {
+              "nom": "Ajdir",
+              "total": 53,
+              "hommes": 0,
+              "femmes": 53,
+              "non_renseigne": 0,
+              "jeunes": 24,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Brarha",
+              "total": 22,
+              "hommes": 0,
+              "femmes": 22,
+              "non_renseigne": 0,
+              "jeunes": 13,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Msila",
+              "total": 19,
+              "hommes": 0,
+              "femmes": 19,
+              "non_renseigne": 0,
+              "jeunes": 12,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Taifa",
+              "total": 24,
+              "hommes": 0,
+              "femmes": 24,
+              "non_renseigne": 0,
+              "jeunes": 17,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Tainaste",
+              "total": 27,
+              "hommes": 0,
+              "femmes": 27,
+              "non_renseigne": 0,
+              "jeunes": 10,
+              "jeunes_nr": 0
+            }
+          ]
+        },
+        {
+          "id": "ARBORICULTURE",
+          "label": "Arboriculture",
+          "total": 18,
+          "hommes": 18,
+          "femmes": 0,
+          "non_renseigne": 0,
+          "jeunes": 18,
+          "jeunes_nr": 0,
+          "communes": [
+            {
+              "nom": "Bni Ftah",
+              "total": 2,
+              "hommes": 2,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 2,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Brarha",
+              "total": 9,
+              "hommes": 9,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 9,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "El Gouzate",
+              "total": 1,
+              "hommes": 1,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 1,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Tainaste",
+              "total": 6,
+              "hommes": 6,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 6,
+              "jeunes_nr": 0
+            }
+          ]
+        },
+        {
+          "id": "APICULTURE",
+          "label": "Apiculture",
+          "total": 18,
+          "hommes": 18,
+          "femmes": 0,
+          "non_renseigne": 0,
+          "jeunes": 18,
+          "jeunes_nr": 0,
+          "communes": [
+            {
+              "nom": "Ajdir",
+              "total": 18,
+              "hommes": 18,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 18,
+              "jeunes_nr": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T2",
+      "label": "Tranche 2 (2024/2025)",
+      "total": 168,
+      "hommes": 60,
+      "femmes": 108,
+      "non_renseigne": 0,
+      "jeunes": 53,
+      "jeunes_nr": 108,
+      "specialites": [
+        {
+          "id": "ATESTATION",
+          "label": "MFR Atestation",
+          "total": 108,
+          "hommes": 0,
+          "femmes": 108,
+          "non_renseigne": 0,
+          "jeunes": 0,
+          "jeunes_nr": 108,
+          "communes": [
+            {
+              "nom": "Gzenaia El Janoubia",
+              "total": 51,
+              "hommes": 0,
+              "femmes": 51,
+              "non_renseigne": 0,
+              "jeunes": 0,
+              "jeunes_nr": 51
+            },
+            {
+              "nom": "Kaf El Ghar",
+              "total": 12,
+              "hommes": 0,
+              "femmes": 12,
+              "non_renseigne": 0,
+              "jeunes": 0,
+              "jeunes_nr": 12
+            },
+            {
+              "nom": "Msila",
+              "total": 45,
+              "hommes": 0,
+              "femmes": 45,
+              "non_renseigne": 0,
+              "jeunes": 0,
+              "jeunes_nr": 45
+            }
+          ]
+        },
+        {
+          "id": "ELEVAGE",
+          "label": "Élevage",
+          "total": 20,
+          "hommes": 20,
+          "femmes": 0,
+          "non_renseigne": 0,
+          "jeunes": 20,
+          "jeunes_nr": 0,
+          "communes": [
+            {
+              "nom": "Ajdir",
+              "total": 1,
+              "hommes": 1,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 1,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Bni Ftah",
+              "total": 1,
+              "hommes": 1,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 1,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "El Gouzate",
+              "total": 1,
+              "hommes": 1,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 1,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Msila",
+              "total": 1,
+              "hommes": 1,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 1,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Taifa",
+              "total": 2,
+              "hommes": 2,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 2,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Tainaste",
+              "total": 9,
+              "hommes": 9,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 9,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Traiba",
+              "total": 5,
+              "hommes": 5,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 5,
+              "jeunes_nr": 0
+            }
+          ]
+        },
+        {
+          "id": "ARBORICULTURE",
+          "label": "Arboriculture",
+          "total": 20,
+          "hommes": 20,
+          "femmes": 0,
+          "non_renseigne": 0,
+          "jeunes": 20,
+          "jeunes_nr": 0,
+          "communes": [
+            {
+              "nom": "Aknoul",
+              "total": 14,
+              "hommes": 14,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 14,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Msila",
+              "total": 1,
+              "hommes": 1,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 1,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Taifa",
+              "total": 1,
+              "hommes": 1,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 1,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Tainaste",
+              "total": 4,
+              "hommes": 4,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 4,
+              "jeunes_nr": 0
+            }
+          ]
+        },
+        {
+          "id": "RESILIENCE-CC",
+          "label": "Résilience aux CC",
+          "total": 20,
+          "hommes": 20,
+          "femmes": 0,
+          "non_renseigne": 0,
+          "jeunes": 13,
+          "jeunes_nr": 0,
+          "communes": [
+            {
+              "nom": "Tainaste",
+              "total": 20,
+              "hommes": 20,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 13,
+              "jeunes_nr": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T3",
+      "label": "Tranche 3 (2025/2026)",
+      "total": 481,
+      "hommes": 293,
+      "femmes": 188,
+      "non_renseigne": 0,
+      "jeunes": 221,
+      "jeunes_nr": 0,
+      "specialites": [
+        {
+          "id": "APICULTURE",
+          "label": "Apiculture (API T3)",
+          "total": 436,
+          "hommes": 253,
+          "femmes": 183,
+          "non_renseigne": 0,
+          "jeunes": 178,
+          "jeunes_nr": 0,
+          "communes": [
+            {
+              "nom": "Ajdir",
+              "total": 77,
+              "hommes": 45,
+              "femmes": 32,
+              "non_renseigne": 0,
+              "jeunes": 39,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Bni Ftah",
+              "total": 15,
+              "hommes": 11,
+              "femmes": 4,
+              "non_renseigne": 0,
+              "jeunes": 3,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Bourd",
+              "total": 44,
+              "hommes": 25,
+              "femmes": 19,
+              "non_renseigne": 0,
+              "jeunes": 17,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Brarha",
+              "total": 8,
+              "hommes": 7,
+              "femmes": 1,
+              "non_renseigne": 0,
+              "jeunes": 2,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "El Gouzate",
+              "total": 10,
+              "hommes": 4,
+              "femmes": 6,
+              "non_renseigne": 0,
+              "jeunes": 2,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Gzenaia El Janoubia",
+              "total": 70,
+              "hommes": 43,
+              "femmes": 27,
+              "non_renseigne": 0,
+              "jeunes": 31,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Jbarna",
+              "total": 14,
+              "hommes": 8,
+              "femmes": 6,
+              "non_renseigne": 0,
+              "jeunes": 10,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Msila",
+              "total": 31,
+              "hommes": 16,
+              "femmes": 15,
+              "non_renseigne": 0,
+              "jeunes": 10,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Sidi Ali Bourkba",
+              "total": 34,
+              "hommes": 17,
+              "femmes": 17,
+              "non_renseigne": 0,
+              "jeunes": 12,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Taifa",
+              "total": 25,
+              "hommes": 16,
+              "femmes": 9,
+              "non_renseigne": 0,
+              "jeunes": 11,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Tainaste",
+              "total": 28,
+              "hommes": 15,
+              "femmes": 13,
+              "non_renseigne": 0,
+              "jeunes": 12,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Tizi Ousli",
+              "total": 46,
+              "hommes": 28,
+              "femmes": 18,
+              "non_renseigne": 0,
+              "jeunes": 22,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Traiba",
+              "total": 34,
+              "hommes": 18,
+              "femmes": 16,
+              "non_renseigne": 0,
+              "jeunes": 7,
+              "jeunes_nr": 0
+            }
+          ]
+        },
+        {
+          "id": "ECOTOURISME",
+          "label": "Écotourisme",
+          "total": 25,
+          "hommes": 20,
+          "femmes": 5,
+          "non_renseigne": 0,
+          "jeunes": 23,
+          "jeunes_nr": 0,
+          "communes": [
+            {
+              "nom": "Aknoul",
+              "total": 1,
+              "hommes": 1,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 1,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Gzenaia El Janoubia",
+              "total": 8,
+              "hommes": 7,
+              "femmes": 1,
+              "non_renseigne": 0,
+              "jeunes": 8,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Kaf El Ghar",
+              "total": 8,
+              "hommes": 4,
+              "femmes": 4,
+              "non_renseigne": 0,
+              "jeunes": 8,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Sidi Ali Bourkba",
+              "total": 3,
+              "hommes": 3,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 3,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Taifa",
+              "total": 1,
+              "hommes": 1,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 1,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Tainaste",
+              "total": 2,
+              "hommes": 2,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 1,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Tizi Ousli",
+              "total": 2,
+              "hommes": 2,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 1,
+              "jeunes_nr": 0
+            }
+          ]
+        },
+        {
+          "id": "ARBORICULTURE",
+          "label": "Arboriculture",
+          "total": 20,
+          "hommes": 20,
+          "femmes": 0,
+          "non_renseigne": 0,
+          "jeunes": 20,
+          "jeunes_nr": 0,
+          "communes": [
+            {
+              "nom": "Ajdir",
+              "total": 4,
+              "hommes": 4,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 4,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Bni Ftah",
+              "total": 2,
+              "hommes": 2,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 2,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Gzenaia El Janoubia",
+              "total": 5,
+              "hommes": 5,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 5,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Msila",
+              "total": 8,
+              "hommes": 8,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 8,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Traiba",
+              "total": 1,
+              "hommes": 1,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 1,
+              "jeunes_nr": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T4",
+      "label": "Tranche 4 (2026/2027)",
+      "total": 26,
+      "hommes": 20,
+      "femmes": 6,
+      "non_renseigne": 0,
+      "jeunes": 24,
+      "jeunes_nr": 0,
+      "specialites": [
+        {
+          "id": "ECOTOURISME",
+          "label": "Écotourisme",
+          "total": 26,
+          "hommes": 20,
+          "femmes": 6,
+          "non_renseigne": 0,
+          "jeunes": 24,
+          "jeunes_nr": 0,
+          "communes": [
+            {
+              "nom": "Aknoul",
+              "total": 1,
+              "hommes": 1,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 1,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Gzenaia El Janoubia",
+              "total": 7,
+              "hommes": 6,
+              "femmes": 1,
+              "non_renseigne": 0,
+              "jeunes": 7,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Kaf El Ghar",
+              "total": 8,
+              "hommes": 4,
+              "femmes": 4,
+              "non_renseigne": 0,
+              "jeunes": 8,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Sidi Ali Bourkba",
+              "total": 4,
+              "hommes": 4,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 4,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Taifa",
+              "total": 1,
+              "hommes": 1,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 1,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Tainaste",
+              "total": 3,
+              "hommes": 2,
+              "femmes": 1,
+              "non_renseigne": 0,
+              "jeunes": 2,
+              "jeunes_nr": 0
+            },
+            {
+              "nom": "Tizi Ousli",
+              "total": 2,
+              "hommes": 2,
+              "femmes": 0,
+              "non_renseigne": 0,
+              "jeunes": 1,
+              "jeunes_nr": 0
+            }
+          ],
+          "note": "liste reportée de T3"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Tranche 4 (Écotourisme) : liste reportée de la Tranche 3 — mêmes personnes (26 vs 25, +1 en T4).",
+    "Genre : champ GENRE (H/F) / SEXE de la source (709 bénéficiaires), complété par déduction du prénom",
+    "(décision du responsable, 15/11/2026) : table de référence 709 typés (consensus 90 %) puis dictionnaire",
+    "de prénoms marocains du Pré-Rif ; les prénoms indéterminés restent « Non renseigné » (aucune invention).",
+    "108 bénéficiaires MFR Atestation 2024-2025 sans âge ni année de naissance : jeunes « Non renseigné ».",
+    "Commune : champ CT normalisé (table d'alias : Boured→Bourd, Tizi ouasli→Tizi Ousli,",
+    "Gzennaya/Geznaya→Gzenaia El Janoubia, Sidi Ali Bourakba) sinon point-dans-polygone sur les 15 communes.",
+    "Commune rattachée pour les 856/856 bénéficiaires — aucune ligne « Hors périmètre » nécessaire.",
+    "Emplacements (points verts, affichage au choix) : data/mfr-points.geojson dépersonnalisé — le navigateur exclut par jointure spatiale les 27 points géocodés hors zone (Msila)."
+  ]
+}

@@ -1,0 +1,1509 @@
+/* PRODER Taza — Styles */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #0a0e1a;
+  color: #e0e6f0;
+  overflow: hidden;
+
+  /* Largeurs des panneaux latéraux, déclarées une seule fois : la fiche du
+     marché s'en sert pour se placer sans jamais les recouvrir. */
+  --panel-left-w: 196px;   /* 170 px + 15 % (170 × 1,15 = 195,5 → 196) */
+  --panel-right-w: 190px;
+
+  /* Hauteur du bandeau de crédit permanent, déclarée une seule fois : tout ce
+     qui est ancré en bas de l'écran s'en sert pour se poser AU-DESSUS de lui
+     plutôt que derrière. Une seule valeur à changer si le bandeau évolue. */
+  --credit-bar-h: 26px;
+}
+
+#map {
+  position: absolute;
+  /* La carte s'arrête AU-DESSUS du bandeau de crédit : sinon les 26 derniers
+     pixels de carte (et ses propres contrôles) seraient masqués en permanence.
+     La carte paraît donc pleine largeur tout en restant entièrement visible. */
+  top: 0; left: 0; right: 0; bottom: var(--credit-bar-h);
+  width: 100%;
+  /* Hauteur explicite : MapLibre mesure son conteneur au chargement et à chaque
+     redimensionnement. Une hauteur déduite de `top`/`bottom` fonctionne, mais
+     une valeur calculée évite toute ambiguïté de mesure au premier rendu. */
+  height: calc(100% - var(--credit-bar-h));
+}
+
+/* Panels */
+.panel {
+  position: absolute;
+  top: 10px;
+  background: rgba(15, 20, 35, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  z-index: 10;
+  /* Le panneau descend jusqu'au bandeau de crédit, pas jusqu'au bas de la
+     fenêtre : sinon son dernier élément (la légende) finirait derrière. */
+  max-height: calc(100vh - 20px - var(--credit-bar-h));
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Largeurs réduites de moitié : les deux panneaux laissent la carte respirer.
+   340 → 170 px à gauche, 380 → 190 px à droite. Le contenu s'y adapte (les
+   libellés passent à la ligne, les grilles se resserrent). */
+.panel-left {
+  left: 10px;
+  width: var(--panel-left-w);
+}
+
+.panel-right {
+  right: 10px;
+  width: var(--panel-right-w);
+  display: none;
+}
+
+.panel-right.visible {
+  display: block;
+}
+
+.panel-header {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: sticky;
+  top: 0;
+  background: rgba(15, 20, 35, 0.95);
+  z-index: 2;
+}
+
+.panel-header h1 {
+  font-size: 18px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4CAF50, #2196F3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.panel-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.subtitle {
+  font-size: 11px;
+  color: #8899aa;
+  margin-top: 4px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tab {
+  flex: 1;
+  padding: 10px 8px;
+  background: transparent;
+  border: none;
+  color: #8899aa;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-bottom: 2px solid transparent;
+}
+
+.tab:hover { color: #e0e6f0; }
+
+.tab.active {
+  color: #4CAF50;
+  border-bottom-color: #4CAF50;
+}
+
+.tab-content {
+  display: none;
+  padding: 12px 16px;
+}
+
+.tab-content.active { display: block; }
+
+/* Sections */
+.section {
+  margin-bottom: 16px;
+}
+
+.section h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #8899aa;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Component toggles */
+.component-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  margin-bottom: 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 13px;
+}
+
+.component-item:hover { background: rgba(255, 255, 255, 0.05); }
+
+.component-item input[type="checkbox"] {
+  margin-right: 8px;
+  accent-color: #4CAF50;
+}
+
+.component-count {
+  margin-left: auto;
+  font-size: 11px;
+  color: #667788;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.component-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+/* Scenario cards */
+.scenario-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.scenario-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(76, 175, 80, 0.3);
+  transform: translateX(2px);
+}
+
+.scenario-card.active {
+  border-color: #4CAF50;
+  background: rgba(76, 175, 80, 0.08);
+}
+
+.scenario-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.scenario-volet {
+  font-size: 10px;
+  color: #4CAF50;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.scenario-desc {
+  font-size: 11px;
+  color: #8899aa;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.scenario-btn {
+  margin-top: 6px;
+  padding: 4px 10px;
+  background: rgba(76, 175, 80, 0.15);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  color: #4CAF50;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.scenario-btn:hover {
+  background: rgba(76, 175, 80, 0.25);
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.btn {
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e0e6f0;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn:hover { background: rgba(255, 255, 255, 0.1); }
+
+.btn-primary {
+  background: rgba(76, 175, 80, 0.2);
+  border-color: rgba(76, 175, 80, 0.4);
+  color: #4CAF50;
+}
+
+.btn-primary:hover { background: rgba(76, 175, 80, 0.3); }
+
+.btn-icon {
+  background: transparent;
+  border: none;
+  color: #8899aa;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+}
+
+.btn-floating {
+  position: absolute;
+  /* Au-dessus du bandeau de crédit, jamais derrière. */
+  bottom: calc(var(--credit-bar-h) + 10px);
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(15, 20, 35, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e0e6f0;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.slider-group {
+  margin-bottom: 10px;
+}
+
+.slider-group label {
+  font-size: 11px;
+  color: #8899aa;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.slider-group input[type="range"] {
+  width: 100%;
+  accent-color: #4CAF50;
+}
+
+.slider-group span {
+  font-size: 11px;
+  color: #4CAF50;
+  float: right;
+}
+
+/* Legend */
+.legend-item {
+  display: flex;
+  align-items: center;
+  padding: 3px 0;
+  font-size: 12px;
+}
+
+.legend-color {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.legend-label { color: #c0c8d8; }
+
+/* Indicators */
+.indicator-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+
+.indicator-name {
+  font-size: 11px;
+  color: #8899aa;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+}
+
+.indicator-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #4CAF50;
+}
+
+.indicator-unit {
+  font-size: 11px;
+  color: #667788;
+  margin-left: 4px;
+}
+
+.indicator-formula {
+  font-size: 10px;
+  color: #556677;
+  margin-top: 4px;
+  font-family: 'Consolas', monospace;
+}
+
+.indicator-ref {
+  font-size: 10px;
+  color: #445566;
+  margin-top: 2px;
+  font-style: italic;
+}
+
+.indicator-confidence {
+  display: inline-block;
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-top: 4px;
+}
+
+.confidence-1 { background: rgba(76, 175, 80, 0.2); color: #4CAF50; }
+.confidence-2 { background: rgba(255, 152, 0, 0.2); color: #FF9800; }
+.confidence-3 { background: rgba(244, 67, 54, 0.2); color: #F44336; }
+
+/* Dashboard */
+.dashboard-section {
+  margin-bottom: 20px;
+}
+
+.dashboard-section h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4CAF50;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.dashboard-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+
+.dashboard-card .value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #4CAF50;
+}
+
+.dashboard-card .label {
+  font-size: 10px;
+  color: #8899aa;
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.dashboard-card .unit {
+  font-size: 11px;
+  color: #667788;
+}
+
+/* Loading overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(10, 14, 26, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.loading-content {
+  text-align: center;
+  max-width: 400px;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(76, 175, 80, 0.2);
+  border-top-color: #4CAF50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-content p {
+  color: #8899aa;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+#progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #4CAF50, #2196F3);
+  transition: width 0.3s;
+}
+
+#loading-status {
+  font-size: 12px;
+  color: #667788;
+  margin-top: 8px;
+}
+
+/* Popup */
+.maplibregl-popup-content {
+  background: rgba(15, 20, 35, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #e0e6f0;
+  padding: 12px;
+  max-width: 300px;
+}
+
+.maplibregl-popup-tip { border-top-color: rgba(15, 20, 35, 0.95); }
+
+.popup-title {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #4CAF50;
+}
+
+.popup-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 14px;
+  font-size: 12px;
+  padding: 2px 0;
+}
+
+.popup-label { color: #8899aa; flex: 0 1 auto; }
+.popup-value { color: #e0e6f0; font-weight: 500; flex: 1 1 auto; text-align: right; }
+
+.data-stamp {
+  font-size: 10px;
+  color: #667788;
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+.anim-status {
+  font-size: 10px;
+  color: #8899aa;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+  padding: 6px 8px;
+  line-height: 1.4;
+  min-height: 26px;
+}
+
+.flux-note {
+  display: none;
+  margin-top: 6px;
+  font-size: 10px;
+  color: #FFB74D;
+  line-height: 1.4;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .panel-left { width: calc(100% - 20px); max-height: 45vh; }
+  .panel-right { width: calc(100% - 20px); max-height: 45vh; top: auto; bottom: 10px; }
+  .dashboard-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ============================================================
+   Fiche du marché — panneau en bas de carte
+   ============================================================ */
+
+/* Positionnement : la fiche s'insère ENTRE le panneau de gauche (170 px) et le
+   tableau de bord de droite (190 px), avec 20 px de marge de chaque côté et
+   10 px sous la carte. Elle ne recouvre donc aucun des deux panneaux.
+
+   Elle est ancrée en bas : la carte reste visible au-dessus, ce qui est le
+   point de la demande (« ne pas encombrer la visibilité de la carte »).
+   Quand le tableau de bord est fermé, la fiche s'élargit d'autant — c'est
+   `body.no-dashboard` qui porte l'information. */
+.market-sheet {
+  position: absolute;
+  /* Les marges reprennent la largeur réelle des panneaux, déclarée une seule
+     fois en variables : la fiche s'ajuste si une largeur change (cas du
+     passage du panneau gauche de 170 à 196 px), et elle ne peut pas se
+     retrouver sous un panneau par désynchronisation. */
+  left: calc(var(--panel-left-w) + 20px);
+  right: calc(var(--panel-right-w) + 20px);
+  /* Posée au-dessus du bandeau, avec la même respiration de 10 px. */
+  bottom: calc(var(--credit-bar-h) + 10px);
+  /* Plafond de sécurité seulement : la fiche se dimensionne sur son contenu,
+     désormais bas (une bande d'en-tête + trois barres côte à côte).
+     22vh + 190px laisse de la marge aux deux cas : portable (900 px de haut →
+     198 px) et petit écran (700 px → 154 px). Le corps défile seul au-delà,
+     l'en-tête reste visible grâce à `flex: 0 0 auto`. */
+  max-height: min(26vh, 210px);
+  z-index: 12;                 /* au-dessus des panneaux (z-index 10) */
+  display: flex;
+  flex-direction: column;
+  background: rgba(12, 17, 30, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  animation: sheet-rise 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  /* La largeur de la fiche n'est PAS celle de la fenêtre : elle est calculée à
+     partir des deux panneaux latéraux. Une requête média sur la fenêtre se
+     trompe donc de cible (constaté : la fiche se repliait à deux colonnes dans
+     une fenêtre étroite alors qu'elle était large, et inversement). On interroge
+     la largeur de la fiche elle-même. */
+  }
+.market-sheet[hidden] { display: none; }
+
+/* Tableau de bord fermé : la fiche occupe la largeur libérée. */
+body.no-dashboard .market-sheet { right: 10px; }
+
+@keyframes sheet-rise {
+  from { transform: translateY(14px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* Le contenu défile seul : l'en-tête et le bouton fermer restent en place. */
+#market-sheet-body {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+
+.market-sheet-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #dfe6f2;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 3;
+}
+.market-sheet-close:hover { background: rgba(255, 255, 255, 0.22); color: #fff; }
+.market-sheet-close:focus-visible {
+  outline: 2px solid var(--pzc-accent, #4CAF50);
+  outline-offset: -2px;
+}
+
+/* En-tête de la fiche : le descriptif du marché, sur UNE seule bande qui
+   occupe toute la largeur de la fiche.
+
+   Avant, cet en-tête était un simple enfant de la grille `auto-fit` du corps :
+   il n'occupait donc qu'UNE colonne de 230 px, ce qui l'obligeait à empiler
+   sur quatre lignes l'eyebrow, le titre, la surface et les bénéficiaires — et
+   c'est lui qui fixait la hauteur de la fiche. Il est maintenant pleine largeur
+   (`grid-column: 1 / -1`) et tient sur une ligne. */
+.sheet-head {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Marge négative = bande pleine largeur : la bordure d'accent touche le bord
+     de la fiche, sans être rognée par le padding de la grille. */
+  margin: 0 -14px 6px;
+  padding: 7px 38px 7px 12px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--pzc-accent) 30%, transparent) 0%, transparent 72%),
+    rgba(255, 255, 255, 0.035);
+  border-left: 4px solid var(--pzc-accent);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  /* Une seule ligne, toujours : si la place manque, c'est le titre qui se
+     raccourcit — jamais l'en-tête qui double de hauteur. */
+  flex-wrap: nowrap;
+  overflow: hidden;
+  /* L'en-tête est un élément de GRILLE : `flex` n'a aucun effet sur lui. C'est
+     `align-content: start` sur la grille du corps qui garantit qu'il n'est
+     jamais comprimé (voir `#market-sheet-body`). */
+}
+.sheet-eyebrow {
+  flex: 0 0 auto;
+  order: 0;
+  font-size: 8.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+  }
+/* Toutes les paires « indicateur → valeur » de l'en-tête suivent la même
+   disposition : le libellé à GAUCHE (en petites capitales), sa valeur à
+   DROITE. C'est l'ordre demandé par le responsable du projet — le lecteur sait
+   de quoi le chiffre parle avant de le lire, au lieu de le découvrir après. */
+.sheet-fact {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.sheet-fact i {
+  font-style: normal;
+  font-size: 7.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+}
+.sheet-fact b {
+  font-size: 11px;
+  font-weight: 800;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+/* La paire « Marché » : elle identifie la fiche, elle est donc mise en avant.
+   Sa valeur ne se comprime JAMAIS (contrairement aux autres, qui s'effacent
+   avant elle — requêtes de conteneur plus bas). */
+.sheet-fact-key {
+  flex: 0 0 auto;
+}
+.sheet-fact-key i {
+  font-size: 9.5px;
+  color: rgba(255, 255, 255, 0.7);
+}
+.sheet-fact-key b {
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+
+/* Le cercle, juste après le marché : même paire « indicateur → valeur », mais
+   un cran plus discrète — c'est un repère de localisation, pas l'identité de
+   la fiche. Il se raccourcit en ellipse si la place manque (dernier recours,
+   après l'effacement des libellés de contexte) : son libellé « Cercle », lui,
+   ne s'efface jamais, car un nom de lieu seul serait ambigu. */
+.sheet-fact-territoire {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+.sheet-fact-territoire b {
+  font-size: 12.5px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* Filet vertical entre le numéro de marché et les chiffres de contexte. */
+.sheet-sep {
+  flex: 0 0 auto;
+  width: 1px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* Les trois chiffres de contexte, répartis sur toute la largeur restante.
+   Quand la fiche est vraiment étroite, les champs passent sur la ligne
+   suivante ; Femmes / Hommes / Jeunes s'empilent à droite. */
+.sheet-facts {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 2px 12px;
+  flex-wrap: wrap;
+}
+
+/* Femmes / Hommes / Jeunes s'empilent verticalement et sont alignés. */
+.sheet-facts-col {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex: 0 0 auto;
+  gap: 2px 0;
+  margin-left: 12px;
+}
+
+/* NB — la pastille de filière (`.sheet-chip`) n'est plus produite : la filière
+   est désormais une paire « FILIÈRE → valeur » parmi les autres, dans la bande
+   de descriptif. Le style est conservé au cas où une pastille reviendrait. */
+.sheet-chip {
+  flex: 0 1 auto;
+  min-width: 0;
+  align-self: center;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+  color: #08101c;
+  background: var(--pzc-accent);
+    text-overflow: ellipsis;
+}
+
+/* Corps : les trois distributions côte à côte quand la place le permet —
+   c'est ce qui rend la fiche basse et large plutôt que haute et étroite. */
+#market-sheet-body {
+  display: grid;
+  /* Trois colonnes ÉGALES, toujours : genre / jeunes / classes d'exploitations
+     sont trois axes de lecture complémentaires, ils se lisent côte à côte.
+     Un `auto-fit` les faisait passer à la ligne dès que la fiche se resserrait,
+     ce qui doublait sa hauteur — exactement ce qu'on veut éviter. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 14px;
+  /* Padding bas réduit à 4 px : la ligne « Taux de féminisation / Taux de
+     jeunesse » ayant été retirée, il ne reste plus qu'à refermer la fiche sur
+     elle-même. C'est cette demande — « éliminer son espace en bas de la barre
+     horizontale » — que ce padding traduit. */
+  padding: 0 14px 4px;
+  /* Les lignes prennent leur hauteur de CONTENU et ne se compriment jamais.
+     Sans ces deux lignes, dès que la fiche atteint son `max-height` (fenêtre
+     courte), les rangées `auto` se partageaient la place restante et rognaient
+     la bande de descriptif — mesuré au banc d'essai : en-tête ramené de 35 à
+     15 px, contenu tronqué. Le dépassement part en défilement, pas en rognage. */
+  grid-auto-rows: max-content;
+  align-content: start;
+}
+
+/* Les blocs de barres et les taux s'adaptent à la grille. */
+.market-sheet .pzc-barblock { padding: 2px 0 0; }
+/* Côte à côte, les trois blocs se séparent par un filet VERTICAL — le filet
+   horizontal de `.pzc-barblock + .pzc-barblock` n'a plus de sens ici. */
+.market-sheet .pzc-barblock + .pzc-barblock {
+  border-top: none;
+  margin-top: 0;
+  padding-left: 14px;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+/* La bande « taux » pleine largeur (`.pzc-rates`) a été supprimée — à la fois
+   sa règle de grille ici et son style générique plus bas dans ce fichier.
+   Raison : plus aucun code ne produit cet élément, et c'est lui qui laissait un
+   vide en bas de la fiche (filet horizontal supérieur + padding). */
+.market-sheet .pzc-note { grid-column: 1 / -1; }
+
+/* Sur écran étroit, la place entre les deux panneaux devient insuffisante :
+   la fiche occupe alors toute la largeur, par-dessus le bas des panneaux.
+   Elle est en bas, eux sont en haut — le recouvrement reste minime. */
+@media (max-width: 900px) {
+  .market-sheet { left: 10px; right: 10px; }
+}
+
+/* ---- Repli sur la largeur RÉELLE de la fiche ------------------------------
+   Trois colonnes demandent ~560 px pour que « Genre non renseigné » et
+   « CLASSES D'EXPLOITATIONS » restent entiers. En dessous, on passe à deux
+   colonnes. On interroge la fiche (conteneur), pas la fenêtre. */
+
+/* Fiche moyenne : on masque les libellés « Superficie / Bénéficiaires /
+   Filière ». Avec l'ordre indicateur → valeur, les valeurs restent seules et
+   alignées à droite ; leurs unités et leur nature restent devinables
+   (« 830,0 ha »), et la place libérée garantit que le numéro de marché n'est
+   jamais tronqué — c'est lui qui identifie la fiche.
+
+   EXCEPTIONS — deux libellés ne s'effacent JAMAIS :
+     - « Marché » : un numéro seul serait un code opaque, or c'est l'identité
+       de la fiche ;
+     - « Cercle » : un nom de lieu seul serait ambigu (est-ce le cercle, la
+       commune, le périmètre ?).
+   Ce sont précisément les deux repères d'identification, c'est-à-dire les
+   derniers à pouvoir être sacrifiés pour gagner de la place. */
+/* Fiche étroite : deux colonnes. */
+/* Fiche très étroite : le nombre de périmètres s'efface à son tour (il reste
+   lisible dans le panneau de gauche), et le numéro de marché se réduit un peu
+   — mais garde son libellé « Marché ». */
+@media (prefers-reduced-motion: reduce) {
+  .market-sheet { animation: none; }
+}
+
+/* ============================================================
+   Bandeau de crédit permanent
+   ============================================================ */
+
+/* Bande pleine largeur, collée au bas de la FENÊTRE (et non de la carte) :
+   elle est donc au-dessus de tout ce que la carte contient, et `position:
+   fixed` la fait survivre au mode story, qui recouvre pourtant l'écran entier.
+   z-index 90 : au-dessus des panneaux (10), de la fiche du marché (12) et de
+   l'overlay story (20) ; en dessous de l'overlay de chargement (100), qui est
+   un état transitoire et doit rester plein écran. */
+.credit-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 90;
+  min-height: var(--credit-bar-h);
+  display: flex;
+  flex-wrap: wrap; /* Permet le passage à la ligne */
+  align-items: center;
+  justify-content: center;
+  gap: 8px 16px;
+  padding: 4px 14px;
+  background: rgba(10, 14, 26, 0.96);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  /* Le texte est le sujet : il ne doit jamais passer sur deux lignes, quelle
+     que soit la largeur de la fenêtre. */
+  white-space: nowrap;
+  font-size: 10.5px;
+  line-height: 1;
+  color: #cfd8e6;
+}
+
+/* Le crédit institutionnel est le sujet du bandeau : il est lisible et contrasté.
+   `min-width: 0` est nécessaire : sans lui, un élément flex ne peut pas
+   descendre sous la largeur de son contenu, et l'ellipse ne se déclencherait
+   jamais — le texte déborderait du bandeau au lieu d'être coupé proprement. */
+.credit-main {
+  flex: 0 1 auto;
+  min-width: 0;
+  letter-spacing: 0.02em;
+}
+.credit-main::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 7px;
+  border-radius: 50%;
+  background: #4CAF50;
+  vertical-align: middle;
+  transform: translateY(-1px);
+}
+
+/* L'attribution du fond de carte : conserve la conformité de licence, mais
+   s'efface visuellement. Elle disparaît la première si la place manque. */
+.credit-tiles {
+  flex: 0 1 auto;
+  min-width: 0;
+  color: #5d6b7d;
+  font-size: 9.5px;
+}
+
+/* Fenêtre plus étroite : on RÉDUIT la typographie plutôt que de masquer
+   l'attribution.
+
+   J'avais d'abord écrit `display: none` sous 1 100 px : c'était une erreur.
+   L'attribution du fond de carte n'est pas décorative, c'est une condition de
+   la licence ODbL/OpenStreetMap. La masquer sur un écran de 1 024 px — la
+   largeur d'un portable de réunion, donc un cas réel de présentation FIDA —
+   revenait à ne plus la fournir du tout à cet utilisateur. Les deux mentions
+   restent donc TOUJOURS présentes ; ce qui varie, c'est leur taille, et le
+   crédit institutionnel se raccourcit en ellipse si la place manque. */
+@media (max-width: 1100px) {
+  .credit-bar { gap: 12px; padding: 0 10px; }
+  .credit-main { font-size: 10px; }
+  .credit-tiles { font-size: 9px; }
+}
+@media (max-width: 720px) {
+  .credit-bar { font-size: 9px; gap: 8px; }
+  .credit-main { font-size: 9px; }
+  .credit-tiles { font-size: 8px; }
+}
+
+/* ============================================================
+   Popups des autres calques (ravins, coopératives, MER…)
+   ============================================================ */
+
+/* Les panneaux sont en z-index 10 : sans cette règle un popup s'ouvrirait
+   SOUS le panneau de gauche. */
+.maplibregl-popup { z-index: 30; }
+.maplibregl-popup .maplibregl-popup-content { position: relative; }
+
+/* Le calque plantation n'utilise plus de popup : sa fiche est le panneau
+   `#market-sheet` en bas de carte. Tout le CSS `pzc-*` propre au popup a donc
+   été retiré (en-tête, sous-titre, pastille) ; il ne reste que les blocs de
+   barres et la légende, qui servent aussi au panneau. */
+
+/* --- Avertissements ------------------------------------------------------ */
+.pzc-note-soft {
+  color: #9fb0c4;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.pzc-note {
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: #FF8A65;
+  background: rgba(255, 138, 101, 0.1);
+  border: 1px solid rgba(255, 138, 101, 0.28);
+  border-radius: 8px;
+  padding: 7px 9px;
+  margin: 4px 0 8px;
+}
+
+/* --- Pastille de couleur (légendes) ------------------------------------- */
+.pzc-dot {
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  transform: translateY(-1px);
+}
+.pzc-note-warn { margin-bottom: 0; }
+
+/* --- Barres de répartition -----------------------------------------------
+   Trois axes (genre, jeunes, superficie), chacun une partition du même
+   total : une barre pleine fait donc toujours 100 %. */
+.pzc-barblock { padding: 5px 0 1px; }
+.pzc-barblock + .pzc-barblock {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 2px;
+}
+.pzc-barblock-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+.pzc-barblock-head span {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pzc-accent);
+}
+/* Le total était répété dans les trois en-têtes de bloc ; il figure désormais
+   une seule fois, dans la bande de descriptif du marché. La règle est
+   conservée pour tout autre usage éventuel de `<em>` dans un en-tête. */
+.pzc-barblock-head em {
+  font-style: normal;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  font-variant-numeric: tabular-nums;
+}
+/* La barre empilée : une seule bande, segments proportionnels. */
+.pzc-stack {
+  display: flex;
+  height: 9px;
+  width: 100%;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.07);
+  margin-bottom: 5px;
+}
+.pzc-stack i {
+  display: block;
+  height: 100%;
+  /* Un liseré sombre sépare les segments sans voler de largeur utile. */
+  box-shadow: inset -1px 0 0 rgba(12, 17, 30, 0.85);
+}
+.pzc-stack i:last-child { box-shadow: none; }
+
+.pzc-legend {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+.pzc-leg {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-size: 10.5px;
+  /* Légende resserrée : trois blocs de quatre lignes doivent tenir dans la
+     hauteur de la fiche sans défilement. */
+  line-height: 1.25;
+}
+.pzc-leg-name {
+  flex: 1 1 auto;
+  color: #b7c2d4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pzc-leg-n {
+  flex: 0 0 auto;
+  color: #fff;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.pzc-leg-pct {
+  flex: 0 0 auto;
+  min-width: 38px;
+  text-align: right;
+  color: #7f8ea3;
+  font-variant-numeric: tabular-nums;
+}
+/* Taux « métier » — SUPPRIMÉS.
+   La bande « Taux de féminisation / Taux de jeunesse » a été retirée de la
+   fiche à la demande du responsable du projet, qui la jugeait redondante avec
+   les barres GENRE et JEUNES et génératrice d'espace vide en bas.
+   Les règles `.pzc-rates` ont donc été retirées du CSS : plus aucun code ne
+   produit cet élément (vérifié : aucune occurrence dans js/ ni index.html).
+   L'information reste disponible dans les barres — effectif ET pourcentage
+   pour chaque catégorie. */
+
+/* --- Éléments retirés de la fiche ---------------------------------------
+   Les barres de pourcentage, le gros nombre de section, le pied de fiche
+   (badge de preuve, méthode, source) et les lignes clé/valeur ont été
+   supprimés lors du passage à la fiche « marché » : la répartition est
+   portée par les camemberts. Ces règles sont retirées pour ne pas laisser
+   de code mort. */
+
+
+/* ================================================================ */
+/* Menu des calques v3 — arborescence QGIS / Google Earth My Maps   */
+/* ================================================================ */
+
+#components-list { overflow-x: hidden; }
+.composant { margin-bottom: 6px; }
+.composant-titre {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  text-transform: uppercase;
+  color: #aab4c4;
+  margin: 12px 2px 4px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+}
+.composant:first-child .composant-titre { margin-top: 0; padding-top: 0; border-top: none; }
+.composant-titre .ct-ico { font-size: 15px; }
+
+/* Ligne : chevron + interrupteur + libellé + compteur. Toutes les lignes
+   sont alignées à la même marge gauche — la hiérarchie est portée par le
+   chevron, pas par un décalage horizontal. */
+.crow {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 6px;
+  border-radius: 8px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+.crow:hover { background: rgba(255, 255, 255, .05); }
+.crow.lvl1, .crow.lvl2, .crow.lvl3, .crow.lvl4 { padding-left: 6px; }
+
+.crow .chev {
+  width: 12px;
+  height: 18px;
+  flex: 0 0 auto;
+  border: none;
+  background: transparent;
+  color: #7f8a9c;
+  font-size: 10px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+.crow .chev:disabled { visibility: hidden; }
+
+/* Petit interrupteur coloré, type Google Earth mais plus moderne */
+.pill {
+  width: 20px;
+  height: 12px;
+  flex: 0 0 auto;
+  border: none;
+  border-radius: 7px;
+  background: #39404d;
+  position: relative;
+  cursor: pointer;
+  transition: background .15s, opacity .15s;
+  padding: 0;
+}
+.pill::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #98a1b0;
+  transition: left .15s, background .15s;
+}
+.pill.on { background: var(--lc, #4CAF50); }
+.pill.on::after { left: 10px; background: #fff; }
+.pill.part { background: var(--lc, #4CAF50); opacity: .45; }
+.pill.part::after { left: 6px; background: #fff; }
+
+.crow .clabel {
+  flex: 1;
+  min-width: 0;
+  font-size: 12.5px;
+  color: #e8edf4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.crow .ccount {
+  font-size: 10.5px;
+  color: #8b94a3;
+  font-variant-numeric: tabular-nums;
+  flex: 0 0 auto;
+}
+.crow .ccount.ha { font-weight: 700; }
+
+/* Sous-listes : DÉPLIÉES par défaut ; le chevron replie à la main */
+.csub { display: block; flex: 0 0 100%; }
+.crow.selectable { cursor: pointer; }
+.crow:not(.open) > .csub { display: none; }
+
+
+/* ===== TAMKIN — arborescence Cercle → Commune (v 2026-11-13a) =====
+   Sous-arbre dense : AKNOUL, TAINASTE et des communes comme « Gzenaia El
+   Janoubia » sont des mots longs pour une liste imbriquée. On récupère de
+   la largeur SANS toucher au panneau ni à la marge gauche commune : marge
+   droite compensée + écarts resserrés, limités à ce sous-arbre (le libellé
+   garde sa graphie complète, le tooltip porte le détail). */
+.tk-tree .csub { margin-right: -6px; }
+.tk-tree .csub .crow { padding-right: 2px; gap: 3px; }
+.tk-tree .csub .crow .clabel { font-size: 12px; }
+/* ===== MER — marqueurs DOM (logo + libellé) — v 2026-10-25s =====
+   Points MER = marqueurs DOM (logo MER + libellé MER-NNN) : l'affichage ne
+   dépend plus du pipeline de rendu MapLibre (source + calques = incertain,
+   prouvé navigateur réel 25/10). Taille CONSTANTE en CSS (38 px de haut),
+   jamais dépendante du zoom. Sélection = HALO ORANGE autour du logo : le
+   logo ne grossit JAMAIS (« juste la surbrillance »).
+
+   Géométrie (v s) : l'image utilisée est `logo-MER-pin.png`, recadrée sur
+   la punaise (l'ancienne icône gardait 11 % de vide transparent en bas, la
+   pointe flottait donc au-dessus du point) ; MapLibre ancre le BAS de
+   l'élément sur la coordonnée → la pointe est exactement sur le point.
+   Le libellé est placé AU-DESSUS de la punaise (il recouvrait le point) et
+   devient cliquable : il ouvre la même fiche que le logo. */
+.mer-marker {
+  position: relative;
+  display: block;
+  /* width/height gérés dynamiquement par JS */
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  z-index: 1;
+  -webkit-tap-highlight-color: transparent;
+  /* Force la carte à compositer ce marqueur dans sa propre couche GPU,
+     ce qui synchronise son transform avec le canvas WebGL et élimine
+     le décalage visible pendant les animations de zoom/dézoom. */
+  will-change: transform;
+}
+.mer-marker-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* Liseré blanc + ombre portée : la punaise dorée se détache du fond de
+     carte clair (forêts, parcelles) sans changer de taille. */
+  filter:
+    drop-shadow(0 0 1px #fff)
+    drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.95))
+    drop-shadow(0 2px 3px rgba(20, 12, 0, 0.4));
+  transition: filter 140ms ease;
+}
+.mer-marker-label {
+  position: absolute;
+  bottom: calc(100% + 1px);
+  left: 0;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  padding: 1px 5px;
+  border-radius: 5px;
+  border: 1px solid rgba(90, 60, 13, 0.3);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+  font: 700 10px/1.25 system-ui, "Segoe UI", sans-serif;
+  letter-spacing: 0.01em;
+  color: #5a3c0d;
+  cursor: pointer;
+  transition: background 140ms ease, border-color 140ms ease;
+}
+.mer-marker:hover,
+.mer-marker:focus-visible { z-index: 3; }
+.mer-marker:hover .mer-marker-label,
+.mer-marker:focus-visible .mer-marker-label {
+  background: #fff;
+  border-color: rgba(90, 60, 13, 0.55);
+}
+.mer-marker:hover .mer-marker-logo {
+  filter:
+    drop-shadow(0 0 1px #fff)
+    drop-shadow(0 0 2px rgba(255, 255, 255, 1))
+    drop-shadow(0 3px 4px rgba(20, 12, 0, 0.45));
+}
+.mer-marker:focus-visible {
+  outline: 2px solid #FF9800;
+  outline-offset: 2px;
+  border-radius: 5px;
+}
+.mer-marker-selected { z-index: 2; }
+.mer-marker-selected .mer-marker-logo {
+  filter:
+    drop-shadow(0 0 1.5px #FF9800)
+    drop-shadow(0 0 3px #FF9800)
+    drop-shadow(0 0 7px rgba(255, 152, 0, 0.85))
+    drop-shadow(0 2px 3px rgba(20, 12, 0, 0.4));
+}
+.mer-marker-selected .mer-marker-label {
+  background: #FF9800;
+  border-color: #E65100;
+  color: #3a2400;
+}
+/* Logo de la fiche (MER / PFC / UV) : taille augmentée pour meilleure lisibilité
+   — 48 px de haut (auparavant 30 px) pour que l'icône soit clairement
+   identifiable d'un coup d'œil dans l'en-tête de la fiche. */
+.sheet-logo {
+  flex: 0 0 auto;
+  height: 48px;
+  width: auto;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
+}
+/* Synchronisation GPU des marqueurs DOM avec le canvas WebGL.
+   Élimine le drift visible pendant les animations de zoom/dézoom. */
+.maplibregl-marker {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+/* ── Marqueurs PFC (plateformes de commercialisation) ─────────────────────── */
+.pfc-marker {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  z-index: 1;
+  -webkit-tap-highlight-color: transparent;
+  will-change: transform;
+}
+.pfc-marker-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 1px #fff)
+    drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.95))
+    drop-shadow(0 2px 3px rgba(20, 12, 0, 0.4));
+  transition: filter 140ms ease;
+}
+.pfc-marker-label {
+  position: absolute;
+  bottom: calc(100% + 1px);
+  left: 0;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  padding: 1px 5px;
+  border-radius: 5px;
+  border: 1px solid rgba(2, 100, 180, 0.3);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+  font: 700 10px/1.25 system-ui, "Segoe UI", sans-serif;
+  letter-spacing: 0.01em;
+  color: #01579B;
+  cursor: pointer;
+  transition: background 140ms ease, border-color 140ms ease;
+}
+.pfc-marker:hover, .pfc-marker:focus-visible { z-index: 3; }
+.pfc-marker:hover .pfc-marker-label, .pfc-marker:focus-visible .pfc-marker-label {
+  background: #fff;
+  border-color: rgba(2, 100, 180, 0.55);
+}
+.pfc-marker:hover .pfc-marker-logo {
+  filter:
+    drop-shadow(0 0 1px #fff)
+    drop-shadow(0 0 2px rgba(255, 255, 255, 1))
+    drop-shadow(0 3px 4px rgba(20, 12, 0, 0.45));
+}
+.pfc-marker:focus-visible { outline: 2px solid #0288D1; outline-offset: 2px; border-radius: 5px; }
+.pfc-marker-selected { z-index: 2; }
+.pfc-marker-selected .pfc-marker-logo {
+  filter:
+    drop-shadow(0 0 1.5px #0288D1)
+    drop-shadow(0 0 3px #0288D1)
+    drop-shadow(0 0 7px rgba(2, 136, 209, 0.85))
+    drop-shadow(0 2px 3px rgba(20, 12, 0, 0.4));
+}
+.pfc-marker-selected .pfc-marker-label {
+  background: #0288D1;
+  border-color: #01579B;
+  color: #fff;
+}
+
+/* ── Marqueurs UV (unités de valorisation du miel) ─────────────────────────── */
+.uv-marker {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  z-index: 1;
+  -webkit-tap-highlight-color: transparent;
+  will-change: transform;
+}
+.uv-marker-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 1px #fff)
+    drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.95))
+    drop-shadow(0 2px 3px rgba(20, 12, 0, 0.4));
+  transition: filter 140ms ease;
+}
+.uv-marker-label {
+  position: absolute;
+  bottom: calc(100% + 1px);
+  left: 0;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  padding: 1px 5px;
+  border-radius: 5px;
+  border: 1px solid rgba(120, 30, 180, 0.3);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+  font: 700 10px/1.25 system-ui, "Segoe UI", sans-serif;
+  letter-spacing: 0.01em;
+  color: #6A1B9A;
+  cursor: pointer;
+  transition: background 140ms ease, border-color 140ms ease;
+}
+.uv-marker:hover, .uv-marker:focus-visible { z-index: 3; }
+.uv-marker:hover .uv-marker-label, .uv-marker:focus-visible .uv-marker-label {
+  background: #fff;
+  border-color: rgba(120, 30, 180, 0.55);
+}
+.uv-marker:hover .uv-marker-logo {
+  filter:
+    drop-shadow(0 0 1px #fff)
+    drop-shadow(0 0 2px rgba(255, 255, 255, 1))
+    drop-shadow(0 3px 4px rgba(20, 12, 0, 0.45));
+}
+.uv-marker:focus-visible { outline: 2px solid #9C27B0; outline-offset: 2px; border-radius: 5px; }
+.uv-marker-selected { z-index: 2; }
+.uv-marker-selected .uv-marker-logo {
+  filter:
+    drop-shadow(0 0 1.5px #9C27B0)
+    drop-shadow(0 0 3px #9C27B0)
+    drop-shadow(0 0 7px rgba(156, 39, 176, 0.85))
+    drop-shadow(0 2px 3px rgba(20, 12, 0, 0.4));
+}
+.uv-marker-selected .uv-marker-label {
+  background: #9C27B0;
+  border-color: #6A1B9A;
+  color: #fff;
+}
+
+/* ── Coopératives apicoles (C9) ─────────────────────────────────────── */
+.coop-marker {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  z-index: 1;
+  -webkit-tap-highlight-color: transparent;
+  will-change: transform;
+}
+.coop-marker-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 1px #fff)
+    drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.95))
+    drop-shadow(0 2px 3px rgba(20, 12, 0, 0.4));
+  transition: filter 140ms ease;
+}
+.coop-marker:hover, .coop-marker:focus-visible { z-index: 3; }
+.coop-marker:hover .coop-marker-logo,
+.coop-marker:focus-visible .coop-marker-logo {
+  filter:
+    drop-shadow(0 0 1px #fff)
+    drop-shadow(0 0 2px rgba(255, 255, 255, 1))
+    drop-shadow(0 3px 4px rgba(20, 12, 0, 0.45));
+}
+.coop-marker:focus-visible { outline: 2px solid #0097A7; outline-offset: 2px; border-radius: 5px; }
+.coop-marker-selected { z-index: 2; }
+.coop-marker-selected .coop-marker-logo {
+  filter:
+    drop-shadow(0 0 1.5px #0097A7)
+    drop-shadow(0 0 3px #0097A7)
+    drop-shadow(0 0 7px rgba(0, 151, 167, 0.85))
+    drop-shadow(0 2px 3px rgba(20, 12, 0, 0.4));
+}
+
+/* ─── Fiche MFR (bas de carte) — gabarit market-sheet, accents MFR ─────────
+   Volet MFR : Tranche → Spécialité → Commune (demande du responsable, 15/11).
+   Agrégats par commune (H/F/NR/Jeunes) — aucune donnée nominative. */
+.mfr-sheet { max-width: 860px; }
+.mfr-sheet .mfr-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.mfr-sheet .mfr-head img { height: 36px; width: auto; }
+.mfr-sheet .mfr-title { font: 700 14px/1.25 system-ui, sans-serif; color: #fff; }
+.mfr-sheet .mfr-sub { font: 500 11.5px/1.3 system-ui, sans-serif; color: rgba(255,255,255,.72); }
+.mfr-bars { display: flex; gap: 14px; margin: 6px 0 4px; }
+.mfr-bar { flex: 1; min-width: 90px; }
+.mfr-bar .mfr-bar-top { display: flex; justify-content: space-between; font: 600 11px/1.2 system-ui, sans-serif; color: rgba(255,255,255,.85); margin-bottom: 4px; }
+.mfr-bar .mfr-track { height: 9px; border-radius: 5px; background: rgba(255,255,255,.14); overflow: hidden; }
+.mfr-bar .mfr-fill { height: 100%; border-radius: 5px; background: var(--mc, #558B2F); }
+/* Arbre MFR : mêmes densités que l'arbre TAMKIN, +1 niveau (communes). */
+.mfr-tree .csub .crow .clabel { font-size: 12px; }
+/* MFR — emplacements (au choix) : bouton de la fiche horizontale */
+.mfr-loc-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.mfr-loc { font: 600 11.5px/1 system-ui, sans-serif; color: #fff; background: rgba(255,255,255,.10);
+  border: 1px solid rgba(124,179,66,.55); border-radius: 14px; padding: 7px 14px; cursor: pointer;
+  transition: background .15s ease, border-color .15s ease; }
+.mfr-loc:hover { background: rgba(124,179,66,.22); }
+.mfr-loc.on { background: #558B2F; border-color: #7CB342; }
+.mfr-loc-count { font: 500 11px/1 system-ui, sans-serif; color: rgba(255,255,255,.68); }
+.crow.lvl5 { padding-left: 6px; }

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRODER Taza — Carte 3D Interactive | Développement Rural Intégré · FIDA</title>
+  <meta name="description" content="Application cartographique 3D du projet PRODER Taza (FIDA) — X composantes, scénarios de complémentarité et indicateurs d'impact avec niveaux de preuve.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0e1a'/%3E%3Cpath d='M6 22 16 7l10 15z' fill='%234CAF50'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="vendor/maplibre-gl.css">
+  <link rel="stylesheet" href="css/style.css?v=menu-v12">
+  <link rel="stylesheet" href="css/story.css">
+</head>
+<body>
+  <!-- Carte 3D -->
+  <div id="map"></div>
+
+  <!-- Panneau de contrôle (gauche) -->
+  <div id="control-panel" class="panel panel-left">
+    <div class="panel-header">
+      <h1>PRODER Taza</h1>
+      <p class="subtitle">Carte 3D Interactive — Développement Rural Intégré · FIDA</p>
+      <p id="data-stamp" class="data-stamp">Chargement des données...</p>
+    </div>
+
+    <!-- Onglets Volets -->
+    <div class="tabs">
+      <button class="tab active" data-tab="volet1">Volet 1 — Production</button>
+      <button class="tab" data-tab="volet2">Volet 2 — Impact</button>
+    </div>
+
+    <!-- Volet 1 -->
+    <div id="volet1" class="tab-content active">
+      <div class="section">
+        <h3>Mode Story Map</h3>
+        <div style="display:flex; gap:8px; margin-bottom:8px;">
+          <button class="btn btn-primary" id="btn-story-plantations" style="flex:1; font-size:11px;">Plantations</button>
+          <button class="btn" id="btn-story-apiculture" style="flex:1; font-size:11px;">Apiculture</button>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Composantes</h3>
+        <div id="components-list"></div>
+      </div>
+      <div class="section">
+        <h3>Scénarios</h3>
+        <div id="scenarios-list"></div>
+      </div>
+    </div>
+
+    <!-- Volet 2 -->
+    <div id="volet2" class="tab-content">
+      <div class="section">
+        <h3>Impact Environnemental</h3>
+        <div id="env-indicators"></div>
+      </div>
+      <div class="section">
+        <h3>Impact Social</h3>
+        <div id="social-indicators"></div>
+      </div>
+      <div class="section">
+        <h3>Impact Économique</h3>
+        <div id="econ-indicators"></div>
+      </div>
+    </div>
+
+    <!-- Contrôles d'animation -->
+    <div class="section">
+      <h3>Vue 3D</h3>
+      <div class="controls">
+        <button id="btn-3d-toggle" class="btn btn-primary" style="flex:1;">Vue 3D</button>
+      </div>
+      <div style="font-size:11px; color:#8899aa; margin-top:4px;">Incliner la caméra pour voir le relief</div>
+    </div>
+    <div class="section controls-section">
+      <h3>Animation</h3>
+      <div class="controls">
+        <button id="btn-play" class="btn btn-primary">▶ Lancer</button>
+        <button id="btn-pause" class="btn">⏸ Pause</button>
+        <button id="btn-reset" class="btn">↺ Reset</button>
+      </div>
+      <div class="slider-group">
+        <label>Vitesse</label>
+        <input type="range" id="speed-slider" min="0.5" max="2" step="0.1" value="1">
+        <span id="speed-value">1.0× (vitesse actuelle)</span>
+      </div>
+      <div class="slider-group">
+        <label>Timeline (plantations jusqu'à l'année choisie)</label>
+        <input type="range" id="timeline-slider" min="2021" max="2025" step="1" value="2025">
+        <span id="timeline-value">2025</span>
+      </div>
+      <div id="anim-status" class="anim-status">Prêt.</div>
+      <div id="flux-note" class="flux-note"></div>
+    </div>
+
+    <!-- Légende -->
+    <div class="section legend-section">
+      <h3>Légende</h3>
+      <div id="legend"></div>
+    </div>
+  </div>
+
+  <!-- Tableau de bord (droite) -->
+  <div id="dashboard" class="panel panel-right">
+    <div class="panel-header">
+      <h2>Tableau de bord</h2>
+      <button id="btn-toggle-dashboard" class="btn-icon">◀ Réduire le tableau de bord</button>
+    </div>
+    <div id="dashboard-content"></div>
+  </div>
+
+  <!-- Bouton toggle dashboard -->
+  <button id="btn-show-dashboard" class="btn-floating">▶ Ouvrir le tableau de bord complet · raccourci : BarrEspace</button>
+
+  <!-- Fiche du marché sélectionné (bas de carte) : remplace l'ancien popup.
+       Elle s'insère ENTRE le panneau de gauche (340 px) et le tableau de
+       bord de droite (380 px), pour ne recouvrir aucun des deux. -->
+  <div id="market-sheet" class="market-sheet" role="dialog" aria-live="polite"
+       aria-label="Fiche du marché sélectionné" hidden>
+    <button id="market-sheet-close" class="market-sheet-close" aria-label="Fermer la fiche">✕</button>
+    <div id="market-sheet-body"></div>
+  </div>
+
+  <!-- Fiche MFR (bas de carte) : agrégats Tranche → Spécialité → Commune.
+       Aucune donnée nominative — même gabarit que la fiche marché. -->
+  <div id="mfr-sheet" class="market-sheet mfr-sheet" role="dialog" aria-live="polite"
+       aria-label="Fiche MFR — effectifs par commune" hidden>
+    <button id="mfr-sheet-close" class="market-sheet-close" aria-label="Fermer la fiche">✕</button>
+    <div id="mfr-sheet-body"></div>
+  </div>
+
+  <!-- Bandeau de crédit permanent — pleine largeur, collé au bas de la fenêtre.
+       Il est HORS de la carte et hors du mode story : il reste visible en
+       permanence, quel que soit l'état de l'application.
+       L'attribution du fond de carte est conservée à l'intérieur, en retrait
+       (obligation de licence ODbL/OpenStreetMap) : elle ne peut donc pas être
+       perdue, mais elle ne concurrence pas visuellement le crédit
+       institutionnel. -->
+  <div id="credit-bar" class="credit-bar" role="contentinfo">
+    <span class="credit-main">
+      Observatoire SIG du projet PRODER · Laboratoire par BOURZIQ Lahcen · Chef SAHA/DPA ·
+      TAZA · Ingénieur en Génie Rural
+    </span>
+    <span class="credit-tiles">
+      Fond de carte : OpenFreeMap · OpenMapTiles · données OpenStreetMap
+    </span>
+  </div>
+
+  <!-- Loading overlay -->
+  <div id="loading" class="loading-overlay">
+    <div class="loading-content">
+      <div class="spinner"></div>
+      <p>Chargement des données PRODER Taza...</p>
+      <div class="progress-bar"><div id="progress-fill"></div></div>
+      <p id="loading-status">Initialisation...</p>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="vendor/maplibre-gl.js"></script>
+  <script type="module" src="app.js?v2026-11-14b"></script>
+</body>
+</html>
